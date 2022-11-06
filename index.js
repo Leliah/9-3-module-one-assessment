@@ -197,7 +197,19 @@ function countByRating(movies) {
     };
  */
 function findById(movies, id) { 
-
+  //setting error to 'null'
+  let error = null
+  //looping through arr
+  for(let i = 0; i < movies.length; i++){
+    //checking id movies' imdbID is the same as given id
+    if(movies[i].imdbID === id){
+      //if so, return movie obj
+      return movies[i]
+    }//for closing tag
+  }//for closing tag
+  
+  //if id doesn't match or not in the arr, return error
+  return error
 }
 
 /**
