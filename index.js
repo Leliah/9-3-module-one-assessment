@@ -3,6 +3,7 @@
 
   Keep in mind that your functions must still have and use a parameter for accepting all movies.
 */
+const { getVersion } = require("jest");
 const exampleMovies = require("./movies");
 // Do not change the line above.
 
@@ -51,18 +52,18 @@ function getAllMovieTitles(movies) {
  *  getHighestMetascore(movies);
  *  //> 96
  */
-function getHighestMetascore(movies) { 
+function getHighestMetascore(movies) {
   //setting variable if arr is empty
-let empty = 0
-//looping through movies arr
-for(let i = 0; i < movies.length; i++){
-  //checking if element one is greater than element 1 and so on
-  if(movies[i].metascore > movies[1].metascore){
-    //returning the biggest score and converting from string to number
-    return Number(movies[i].metascore)
-  }//if closing tage
-}//for closing tag
-return empty
+  let empty = 0
+  //looping through movies arr
+  for (let i = 0; i < movies.length; i++) {
+    //checking if element one is greater than element 1 and so on
+    if (movies[i].metascore > movies[1].metascore) {
+      //returning the biggest score and converting from string to number
+      return Number(movies[i].metascore)
+    }//if closing tage
+  }//for closing tag
+  return empty
 }
 
 /**
@@ -76,42 +77,53 @@ return empty
  *  getAverageIMDBRating(movies);
  *  //> 7.76
  */
-function getAverageIMDBRating(movies) { 
-    //variable if no movies are in the array
-    let noMovies = 0
-    //bucket tracking average rating
-    let average = 0
-    //new array holding only the averages *as strings*
-    let arr = []
-    //taking arr of strings to arr of numbers
-    let arrNum
-  
-    //looping through movies array
-    for (let i = 0; i < movies.length; i++) {
-      //pushing movie ratings into empty array
-      arr.push(movies[i].imdbRating)
-    }//for loop closing tag
-  
-    //loop into our new array with just movie ratings
-    for (let i = 0; i < arr.length; i++) {
-      //converting arr from strings to numbers and setting it to new arr
-      arrNum = arr.map(str => {
-        return Number(str)
-      });
-      //adding + updating average value
-      average += arrNum[i]
-    }
-  
-    //error if there are no movies in movies array
-    if (movies.length === 0) {
-      return noMovies
-    }
-  
-    //setting average by taking the total and dividing it by the number of elements in arr
-    average = average / arr.length
-  
-    //return average
-    return average
+
+/**
+ * 1.loop through movies array for movie ratings
+ * 2. take movie ratings and put in new array
+ * 3. convert array of strings to array of numbers
+ * 4. add numbers in array and set to 'average' as we go until we reach the total
+ * 5. get length(number of elements) of the array
+ * 6. divide the total from 'average bucket' and divide by the length
+ * 7. return outcome as average
+ */
+
+function getAverageIMDBRating(movies) {
+  //variable if no movies are in the array
+  let noMovies = 0
+  //bucket tracking average rating
+  let average = 0
+  //new array holding only the averages *as strings*
+  let arr = []
+  //taking arr of strings to arr of numbers
+  let arrNum
+
+  //looping through movies array
+  for (let i = 0; i < movies.length; i++) {
+    //pushing movie ratings into empty array
+    arr.push(movies[i].imdbRating)
+  }//for loop closing tag
+
+  //loop into our new array with just movie ratings
+  for (let i = 0; i < arr.length; i++) {
+    //converting arr from strings to numbers and setting it to new arr
+    arrNum = arr.map(str => {
+      return Number(str)
+    });
+    //adding + updating average value
+    average += arrNum[i]
+  }
+
+  //error if there are no movies in movies array
+  if (movies.length === 0) {
+    return noMovies
+  }
+
+  //setting average by taking the total and dividing it by the number of elements in arr
+  average = average / arr.length
+
+  //return average
+  return average
 
 }
 
@@ -127,21 +139,21 @@ function getAverageIMDBRating(movies) {
  *  //> { G: 3, PG: 7 }
  */
 function countByRating(movies) {
-    //setting empty obj
-    let ratings = {}
-    //looping through movies arr
-    for(let i = 0; i < movies.length; i++){
-      //if there are no movies in obj, start count
-      if(!ratings[movies[i].rated]){
-        ratings[movies[i].rated] = 1
-      } else {
-        //otherwise if there are, count how many
-        ratings[movies[i].rated] += 1
-      }//if closing tag
-    }//for closing tag
-    return ratings
-  
- }
+  //setting empty obj
+  let ratings = {}
+  //looping through movies arr
+  for (let i = 0; i < movies.length; i++) {
+    //if there are no movies in obj, start count
+    if (!ratings[movies[i].rated]) {
+      ratings[movies[i].rated] = 1
+    } else {
+      //otherwise if there are, count how many
+      ratings[movies[i].rated] += 1
+    }//if closing tag
+  }//for closing tag
+  return ratings
+
+}
 /*let ratings = {}
   let pgRating = {}
   let gRating = {}
@@ -196,18 +208,18 @@ function countByRating(movies) {
       // Toy Story 4
     };
  */
-function findById(movies, id) { 
+function findById(movies, id) {
   //setting error to 'null'
   let error = null
   //looping through arr
-  for(let i = 0; i < movies.length; i++){
+  for (let i = 0; i < movies.length; i++) {
     //checking id movies' imdbID is the same as given id
-    if(movies[i].imdbID === id){
+    if (movies[i].imdbID === id) {
       //if so, return movie obj
       return movies[i]
     }//for closing tag
   }//for closing tag
-  
+
   //if id doesn't match or not in the arr, return error
   return error
 }
@@ -232,7 +244,20 @@ function findById(movies, id) {
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre() { }
+function filterByGenre(movies, genre) {
+  //setting empty arr
+  let arr = []
+  //looping through movies arr
+  for (let i = 0; i < movies.length; i++) {
+    //making genres all lower case and checking to see if the genre given is included in the movies genres
+    //.includes() works b/c multi elements in string???
+    //if(movies[i].genre.toLowerCase() === genre.toLowerCase())
+    if (movies[i].genre.toLowerCase().includes(genre.toLowerCase())) {
+       arr.push(movies[i])
+    }//if closing tag
+  }//for closing tag
+  return arr
+}
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
