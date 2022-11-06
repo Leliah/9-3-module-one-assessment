@@ -76,7 +76,42 @@ return empty
  *  getAverageIMDBRating(movies);
  *  //> 7.76
  */
-function getAverageIMDBRating() { 
+function getAverageIMDBRating(movies) { 
+    //variable if no movies are in the array
+    let noMovies = 0
+    //bucket tracking average rating
+    let average = 0
+    //new array holding only the averages *as strings*
+    let arr = []
+    //taking arr of strings to arr of numbers
+    let arrNum
+  
+    //looping through movies array
+    for (let i = 0; i < movies.length; i++) {
+      //pushing movie ratings into empty array
+      arr.push(movies[i].imdbRating)
+    }//for loop closing tag
+  
+    //loop into our new array with just movie ratings
+    for (let i = 0; i < arr.length; i++) {
+      //converting arr from strings to numbers and setting it to new arr
+      arrNum = arr.map(str => {
+        return Number(str)
+      });
+      //adding + updating average value
+      average += arrNum[i]
+    }
+  
+    //error if there are no movies in movies array
+    if (movies.length === 0) {
+      return noMovies
+    }
+  
+    //setting average by taking the total and dividing it by the number of elements in arr
+    average = average / arr.length
+  
+    //return average
+    return average
 
 }
 
