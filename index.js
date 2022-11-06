@@ -126,8 +126,21 @@ function getAverageIMDBRating(movies) {
  *  countByRating(movies);
  *  //> { G: 3, PG: 7 }
  */
-function countByRating() {
-
+function countByRating(movies) {
+    //setting empty obj
+    let ratings = {}
+    //looping through movies arr
+    for(let i = 0; i < movies.length; i++){
+      //if there are no movies in obj, start count
+      if(!ratings[movies[i].rated]){
+        ratings[movies[i].rated] = 1
+      } else {
+        //otherwise if there are, count how many
+        ratings[movies[i].rated] += 1
+      }//if closing tag
+    }//for closing tag
+    return ratings
+  
  }
 /*let ratings = {}
   let pgRating = {}
