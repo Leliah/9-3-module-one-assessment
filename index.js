@@ -51,8 +51,18 @@ function getAllMovieTitles(movies) {
  *  getHighestMetascore(movies);
  *  //> 96
  */
-function getHighestMetascore() { 
-
+function getHighestMetascore(movies) { 
+  //setting variable if arr is empty
+let empty = 0
+//looping through movies arr
+for(let i = 0; i < movies.length; i++){
+  //checking if element one is greater than element 1 and so on
+  if(movies[i].metascore > movies[1].metascore){
+    //returning the biggest score and converting from string to number
+    return Number(movies[i].metascore)
+  }//if closing tage
+}//for closing tag
+return empty
 }
 
 /**
